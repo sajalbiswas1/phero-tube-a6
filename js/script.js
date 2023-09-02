@@ -57,12 +57,30 @@ const cardFunction = (load) => {
     const cardSection = document.getElementById('card-section');
     cardSection.innerHTML = '';
     load.forEach(element => {
-        console.log('ami ki paici',element.others.posted_date);
+//--------------time---------section
+        const time = element.others.posted_date;
+        let hour= parseFloat(time)/3600;
+        let minit=parseFloat(time)%60;
+        if(time>0){
+            count =parseInt(hour)+" "+"hrs"+" "+parseInt(minit)+" "+"min"+" "+"ago";
+             mainTime =`<p class="absolute bg-[#171717] text-white bottom-32 right-2 px-2 rounded-md">${count}</p>`
+            console.log('its a view')
+        }
+        else{
+            count='';
+            mainTime='';
+        }
+
+
+        console.log('ami ki paici',time);
         const div = document.createElement('div');
-        div.classList = 'max-w-7xl m-auto bg-base-100 shadow-2xl rounded-lg mt-5 ';
+        div.classList = 'max-w-7xl m-auto bg-base-100 shadow-2xl rounded-lg mt-5 relative';
         div.innerHTML = `
         <figure>
             <img class="w-80 h-48 m-auto rounded-lg" src="${element.thumbnail}" />
+            <div>
+            ${mainTime}
+            </div>
         </figure>
             <div class="flex gap-4 mt-4 pl-5">
                 <div>
