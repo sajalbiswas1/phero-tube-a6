@@ -74,7 +74,7 @@ const cardFunction = (load) => {
 
         console.log('ami ki paici',time);
         const div = document.createElement('div');
-        div.classList = 'max-w-7xl m-auto bg-base-100 shadow-2xl rounded-lg mt-5 relative';
+        div.classList = 'max-w-7xl m-auto bg-base-100 rounded-lg mt-5 relative';
         div.innerHTML = `
         <figure>
             <img class="w-80 h-48 m-auto rounded-lg" src="${element.thumbnail}" />
