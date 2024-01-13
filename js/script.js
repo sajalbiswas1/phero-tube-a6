@@ -1,29 +1,34 @@
+
 const buttonList = async () => {
     const response = await fetch('https://openapi.programming-hero.com/api/videos/categories');
     const data = await response.json();
     const dataFocus = data.data;
+   
     console.log(dataFocus);
     buttonSet(dataFocus);
+    categoryLoad(dataFocus[0].category_id)
 }
 
 const buttonSet = (btn) => {
     const btnList = document.getElementById('btn-list');
     btn.forEach(element => {
+        // var butColorId = element;
         const button = document.createElement('button');
-        button.classList = 'bg-gray-200 mx-2 py-2 px-4 mb-5 font-semibold rounded-md focus:bg-red-500 focus:text-white'
-        button.id = `hello ${element.category_id}`;
+        button.classList = 'bg-gray-200 mx-2 py-2 px-4 mb-5 active:bg-violet-700 font-semibold rounded-md  focus:text-white'
+        button.id = `hello${element.category_id}`;
         button.onclick = `category(${element.category_id})`;
         button.setAttribute(`onclick`, `categoryLoad(${element.category_id})`);
         button.innerText = `${element.category}`
         btnList.appendChild(button);
-        console.log(button);
-
+        console.log(button); 
     });
 
 }
+
 // .....................................................
 
 const categoryLoad = async (id) => {
+
     const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
     const data = await response.json();
     const dataFocus2 = data.data;
@@ -43,13 +48,8 @@ const categoryLoad = async (id) => {
         cardSection2.appendChild(opsDiv);
     }
     document.getElementById('short-by-all').addEventListener('click', function () {
-        const shortArray = [];
-        dataFocus2.forEach(element1 => {
-            shortArray.push(parseFloat(element1.others.views))
-        })
-        shortArray.sort(function (a, b) { return b - a });
-        console.log(shortArray);
-        cardFunction(shortArray);
+       let hellox = dataFocus2.sort((a, b) => parseFloat(b.others.views) - parseFloat(a.others.views));
+       cardFunction(hellox);
     })
     cardFunction(dataFocus2);
 }
@@ -64,15 +64,11 @@ const cardFunction = (load) => {
         if(time>0){
             count =parseInt(hour)+" "+"hrs"+" "+parseInt(minit)+" "+"min"+" "+"ago";
              mainTime =`<p class="absolute bg-[#171717] text-white bottom-32 right-2 px-2 rounded-md">${count}</p>`
-            console.log('its a view')
         }
         else{
             count='';
             mainTime='';
         }
-
-
-        console.log('ami ki paici',time);
         const div = document.createElement('div');
         div.classList = 'max-w-7xl m-auto bg-base-100 rounded-lg mt-5 relative';
         div.innerHTML = `
@@ -111,3 +107,12 @@ const home = () => window.location.href = "/index.html"
 
 
 buttonList();
+
+// const shortArray = [];
+//         dataFocus2.forEach(element1 => {
+//             shortArray.push(parseFloat(element1.others.views))
+//         })
+//         shortArray.sort(function (a, b) { return b - a });
+//         console.log(shortArray);
+//         cardFunction(shortArray);
+
